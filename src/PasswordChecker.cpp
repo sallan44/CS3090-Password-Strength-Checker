@@ -2,7 +2,7 @@
 #include <regex>
 
 class PasswordChecker{
-    private:
+    protected:
         //name of user
         std::string name;
         //password inputted
@@ -15,7 +15,9 @@ class PasswordChecker{
         std::regex spaces{"\\s"};
 
     public:
-
+        /**
+         * Constructor. Instantiayes name and password typed by user.
+         */
         PasswordChecker(std::string name, std::string password) : name(name), password(password) {};
 
         void checkPasswordRequirements(){
@@ -25,13 +27,16 @@ class PasswordChecker{
                 message = "Password can not contain spaces.";
             } else if (!std::regex_search(password, specialCharacters)){
                  message = "Password must have at least one special character.";
-            } else if (password.find(name) == std::string::npos){
+            } else if (password.find(name) != std::string::npos){
                 message = "Password must not contain name.";
             } else {
                 message = "Password is strong.";
             }
         }
 
+        /**
+         * Prints status of password to console.
+         */
         void displayMessage(){
             std::cout << message << std::endl;
         }
